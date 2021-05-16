@@ -113,15 +113,7 @@ class CircularCountDownTimerState extends State<CircularCountDownTimer>
 
   String get time {
     if (widget.isReverse && _controller!.isDismissed) {
-      if (widget.textFormat == CountdownTextFormat.MM_SS) {
-        return "00:00";
-      } else if (widget.textFormat == CountdownTextFormat.SS) {
-        return "00";
-      } else if (widget.textFormat == CountdownTextFormat.S) {
-        return "0";
-      } else {
-        return "00:00:00";
-      }
+      return '0';
     } else {
       Duration duration = _controller!.duration! * _controller!.value;
       return _getTime(duration);
@@ -187,7 +179,7 @@ class CircularCountDownTimerState extends State<CircularCountDownTimer>
 
   _defaultFormat(Duration duration) {
     if (duration.inHours != 0) {
-      return '${duration.inHours.toString().padLeft(2, '0')}:${(duration.inMinutes % 60).toString().padLeft(2, '0')}:${(duration.inSeconds % 60).toString().padLeft(2, '0')}';
+      return '${duration.inHours.toString().padLeft(2, '0')}:\n${(duration.inMinutes % 60).toString().padLeft(2, '0')}:${(duration.inSeconds % 60).toString().padLeft(2, '0')}';
     } else if (duration.inMinutes != 0) {
       return '${(duration.inMinutes % 60).toString().padLeft(2, '0')}:${(duration.inSeconds % 60).toString().padLeft(2, '0')}';
     } else {
@@ -272,6 +264,7 @@ class CircularCountDownTimerState extends State<CircularCountDownTimer>
                             alignment: FractionalOffset.center,
                             child: Text(
                               time,
+                              textAlign: TextAlign.center,
                               style: widget.textStyle ??
                                   TextStyle(
                                     fontSize: 16.0,
